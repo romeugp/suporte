@@ -1,0 +1,63 @@
+﻿@model ProjetoSuporte.Models.Usuario
+@{
+    //redirecionador de buff
+    Response.BufferOutput = true;
+
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Nosso trabalho é a sua satisfação";
+
+    ProjetoSuporte.Models.Usuario m = new ProjetoSuporte.Models.Usuario();
+
+}
+<html>
+<head>
+    <link href="~/Content/index.css" rel="stylesheet" />
+</head>
+<body>
+    @*<nav id="menu">
+        <ul id="menu">
+            <li>   @Html.Action("Menu", "Default") </li>
+        </ul>
+    </nav>*@
+
+    <section class="featured">
+
+        <div class="content-wrapper">
+            <hgroup class="title"></hgroup>
+
+            @using (Html.BeginForm("Usuario", "Login", null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset>   
+                    <h1 style="color:white">Faça o seu Login</h1>
+                    <div style="margin-top:20px;"><strong>@Html.LabelFor(model => Model.matricula)</strong></div>
+                    <div>@Html.TextBoxFor(model => Model.matricula, new { @cols = "13", @rows = "1", style = " resize:none; text-align:center;border-radius: 4px; ", @placeholder = "Digite sua matrícula" })</div>
+                    @Html.ValidationMessageFor(model => Model.matricula)
+
+                    <br />
+                    <div style="margin-top:20px;"><strong>@Html.LabelFor(model => Model.Senha)</strong></div>
+                    <div>@Html.PasswordFor(model => Model.Senha, new { @cols = "13", @rows = "1", style = " resize:none; text-align:center;border-radius: 4px;margin-bottom: -25px; ", @placeholder = "Digite sua senha" })</div>
+                    @Html.ValidationMessageFor(model => Model.Senha)
+
+                    <br /><br />
+                    @{
+                        //Autoriazão de administrador
+                        Session["autorizacao"] = 0;
+                        int t = Convert.ToInt32(Session["autorizacao"]);
+                    }
+                    <div><input id="botao" type="submit" value="Entrar" /></div>
+                </fieldset>
+              }
+        </div>
+
+    </section>
+
+</body>
+
+
+</html>
+
+
+

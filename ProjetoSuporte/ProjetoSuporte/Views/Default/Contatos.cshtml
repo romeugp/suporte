@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Contatos";
+    Layout = "~/_SiteLayout.cshtml";
+}
+
+<nav id="menu">
+    <ul id="menu">
+        <li>   @Html.Action("Menu", "Default") </li>
+    </ul>
+</nav>
+
+<hgroup class="title">
+    <h1>@Page.Title</h1>
+
+</hgroup>
+
+<section class="contact">
+    <header>
+        <h3>Telefone:</h3>
+    </header>
+    <p>
+        <span class="label">Suporte:</span>
+        <span>2107-8049</span>
+
+    </p>
+    <p>
+        <span class="label">Radio:</span>
+        <span>98269-1862 </span>
+        <span>&nbsp; &nbsp;ID:#139 </span>
+    </p>
+</section>
+
+<section class="contact">
+    <header>
+        <h3>Email:</h3>
+    </header>
+    <p>
+        <span class="label">Suporte - informática:</span>
+        <span><a href="mailto:suporteinformatica@inter.com.br">suporteinformatica@inter.com.br</a></span>
+    </p>
+    <p>
+        <span class="label">Rafael - externo:</span>
+        <span><a href="mailto:rafael@intersuper.com.br">rafael@intersuper.com.br</a></span>
+    </p>
+
+</section>

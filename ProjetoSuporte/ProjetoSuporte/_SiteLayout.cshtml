@@ -1,0 +1,60 @@
+﻿
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <title>@Page.Title - suporte inter</title>
+        <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" type="text/css"
+              href="https://fonts.googleapis.com/css?family=Tangerine">
+        <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Chela+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+     
+    </head>
+    <body>
+        <header id="cabecalho">        
+
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title"> <figure> <a href="http://www.supermercadosinter.com.br/" target="_blank"> <img src="~/Images/logo-Inter.png"/> </a> </figure> </p>
+                </div>
+                
+                <div class="float-right">
+                   
+                </div>
+            </div>
+        </header>
+        <div class="float-left">
+            <h1 id="titulo">CHAMADOS</h1>
+            @*@{
+                if (Session["nome"] != null)
+                {
+                    string sessao = Session["nome"].ToString();
+                    <div>Usuario:@sessao</div>
+                }
+
+            }*@
+        </div>
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+
+                <footer id="footer">
+                    @AppState["login"]
+                    <p id="rodape">Tel:2107-8049 &nbsp;&nbsp; 2107-8026 &nbsp;&nbsp;2107-8023<br/> &copy; @DateTime.Now.Year - Informática Inter</p>
+                    
+                </footer>
+       
+        
+        @RenderSection("Scripts", required: false)
+    </body>
+
+</html>

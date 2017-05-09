@@ -1,0 +1,28 @@
+﻿body {
+   
+}
+div#criaLogin{
+    background-color:gray;
+   text-align:center;
+    margin-left:10%;
+    margin-right:10%;
+    padding-bottom:1%;
+}
+input#password{
+    
+}
+label#erroSenha{
+    font-size:14pt;
+    
+    color: black;
+    
+}
+input#btnCriar{
+    width:100px;
+    margin-top: -10px;
+    margin-bottom:10px;
+    
+}
+.btn:hover{
+    background-color:silver;
+}

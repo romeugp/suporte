@@ -1,0 +1,163 @@
+﻿@model ProjetoSuporte.Models.Chamado
+@{
+    ViewBag.Title = "AbreChamado";
+    Layout = "~/_SiteLayout.cshtml";
+    int acesso = 2;
+
+    try
+    {
+        string s = Session["id"].ToString();
+
+        //acesso = Model.acesso();
+    }
+    catch
+    {
+        Response.Redirect("~/Views/Default/Index.cshtml");
+    }
+
+
+        <h2 id="1">Abre Chamado</h2>
+    }
+<html>
+<head> 
+    <link href="~/Content/abre_chamado.css" rel="stylesheet" /> 
+
+    @section Scripts {
+
+        <script type="text/javascript" language="javascript">
+                                    $(function () {
+                                        $('input[type=datetime]').datepicker({
+                                            dateFormat: 'dd/mm/yy',
+                                            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                                            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                                            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                                            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                            nextText: 'Proximo',
+                                            prevText: 'Anterior',
+                                            showOn: "button"
+                                        }).css("display", "inline-block")
+                                            .next("button").button({
+                                                icons: { primary: "ui-icon-calendar" },
+                                                label: "Selecione uma data",
+                                                text: false
+                                            });
+                                    });
+        </script>
+    }
+
+</head>
+<body></body>
+</html>
+<nav id="menu">
+    <ul id="menu">
+        <li>@Html.Action("Menu2", "AbreChamado")</li> 
+    </ul>
+</nav>
+@{
+    if ((acesso == 1) || (acesso == 2))
+    {
+        <fieldset>
+            @using (Html.BeginForm("InsereDados", "AbreChamado", null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <legend>AbreChamado admin/gerente</legend>
+                <br />
+                <section>
+                    <div id="filtros">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.Setor)
+                            @Html.DropDownListFor(model => Model.Setor, Model.listaSetor())
+
+                            @Html.LabelFor(model => Model.Tipo)
+                            @Html.DropDownListFor(model => Model.Tipo, Model.listaTipo())
+
+
+                            @Html.LabelFor(model => Model.prioridade)
+                            @Html.DropDownListFor(model => Model.Tipo, Model.listaPrioridade())
+
+                            <br /><br />
+                            <div style="display:none;">
+                                @Html.LabelFor(model => model.PrazoFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PrazoFinal, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PrazoFinal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    &nbsp;
+                    <div>@Html.LabelFor(model => Model.Detalhe)</div>
+                    <div>@Html.TextAreaFor(model => Model.Detalhe, new { @cols = "50", @rows = "10", style = " resize:none; text-align:center; margin-top: 0px; ", @placeholder = "Digite seu problema aqui" })</div>
+                    @Html.ValidationMessageFor(model => Model.Detalhe)
+                    <br /><br />
+                    <div><input type="submit" value="Abrir" /></div>
+                    <br />
+
+                </section>
+
+
+            }
+        </fieldset>
+    }
+    else
+    {
+        <fieldset>
+            @using (Html.BeginForm("InsereDados", "AbreChamado", null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <legend>AbreChamado normal</legend>
+                <br />
+                <section>
+
+                    <div>
+
+                        @Html.LabelFor(model => Model.Escolha)
+                        @Html.DropDownListFor(model => Model.Escolha, new List<SelectListItem> {
+             new SelectListItem {Text = "Máquina não liga",Value = "1" },
+             new SelectListItem { Text = "Pasta da rede", Value = "2" },
+             new SelectListItem {Text = "Impressora",Value = "3" },
+             new SelectListItem {Text = "RMS",Value = "4" },
+             new SelectListItem {Text = "Intra Net",Value = "5" },
+             new SelectListItem {Text = "Internet",Value = "6" },
+             new SelectListItem {Text = "E-mail",Value = "7" },
+             new SelectListItem {Text = "Solicitações",Value = "8" },
+             new SelectListItem {Text = "Transferências",Value = "9" },
+             new SelectListItem {Text = "Outro",Value = "0" }
+
+             })
+                    </div>
+
+
+                    &nbsp;
+                    <div>@Html.LabelFor(model => Model.Detalhe)</div>
+                    <div>@Html.TextAreaFor(model => Model.Detalhe, new { @cols = "50", @rows = "10", style = " resize:none; text-align:center; margin-top: 0px; ", @placeholder = "Digite seu problema aqui" })</div>
+                    @Html.ValidationMessageFor(model => Model.Detalhe)
+                    <br /><br />
+                    <div><input type="submit" value="Abrir" /></div>
+                    <br />
+
+                </section>
+
+
+            }
+        </fieldset>
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

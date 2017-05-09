@@ -1,0 +1,27 @@
+﻿@model ProjetoSuporte.Models.Madmin
+@{
+    //Layout = "~/_SiteLayout.cshtml";
+
+    string id = 30.ToString();/* Session["id"].ToString();*/
+    string Nchamado = 1.ToString(); /*Session["NChamado"].ToString();*/
+    int nchamado = Convert.ToInt32(Nchamado);
+
+    ProjetoSuporte.Models.Madmin m = new ProjetoSuporte.Models.Madmin();
+    m.FechaChamado(Convert.ToInt32(id) , nchamado, Model.solucao ); //id e Nº do chamado
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fecha2</title>
+
+</head>
+<body>
+    <div> 
+        fudeu
+    </div>
+</body>
+</html>

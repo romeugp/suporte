@@ -1,0 +1,80 @@
+﻿body {
+}
+
+a#fecha {
+    text-decoration: none;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+h2 {
+    color: white;
+}
+
+    h2#dicas {
+        margin-top: 40px;
+    }
+
+p#letra {
+    margin-top: 50px;
+}
+
+p {
+    color: white;
+    font-size: 12pt;
+}
+
+    p u {
+        color: white;
+    }
+
+h2#atencao {
+    text-align: center;
+}
+
+fieldset#principal {
+    background: url(../Images/logo-Inter.png) center;
+    opacity: 0.2;
+    height: 530px;
+}
+nav#menu {
+
+    top: 50px;
+    right: 50px;
+}
+
+
+
+
+/*#pop{
+opacity:0.9;
+background-color:black;
+color:white;
+display:flex;
+position:absolute;
+top:1%;
+left:1%;
+width:97%;
+height:900px;
+border:1px solid #d0d0d0;
+}*/
+
+/*#popNotificacao{
+opacity:0.9;
+background-color:red;
+color:black;
+display:flex;
+position:absolute;
+top:0;
+left:1%;
+width:97%;
+height:900px;
+border:1px solid #d0d0d0;
+}*/
+h1#teste{
+   margin-left:100%;
+}

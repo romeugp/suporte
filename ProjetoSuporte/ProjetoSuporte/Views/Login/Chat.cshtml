@@ -1,0 +1,37 @@
+﻿@model ProjetoSuporte.Models.Usuario
+@{
+    ViewBag.Title = "Chat";
+
+    string nome = Session["nome"].ToString();
+}
+<html>
+<head>
+    <link type="text/css" href="~/Content/chat.css" rel="stylesheet" />
+
+</head>
+<body>
+    <fieldset id="chateusuario">
+        <div id="detalheusuario">Nome: Rafael &nbsp;&nbsp;Setor: Informática</div>
+    </fieldset >
+    <fieldset id="chatemensagens">
+        <p id="chateusuario">
+            Nome
+            <input type="text" id="nome" name="nome" value="@nome" />
+        </p>
+
+        <div id="scroll"><ul id="conversa"></ul></div>
+            <input type="text" id="mensagem" name="mensagem" />
+    </fieldset>
+     @{ 
+         
+     }
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Chat.js"></script>
+
+</body>
+
+
+</html>

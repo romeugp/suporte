@@ -1,0 +1,36 @@
+﻿body {
+   
+}
+
+div#acompanha_principal{
+    
+    text-align:center;
+}
+
+table{
+    margin-left:45%;
+}
+h1{
+    text-align:center;
+}
+input#btnBuscar{
+   
+	width:70px;
+	height:40px;
+    border-radius: 10px;
+    
+}
+
+input#btnBuscar:hover{
+    background-color:silver;
+	width:70px;
+	height:40px;
+    border-radius: 10px;
+    
+}
+
+
+input#txtNchamado{
+    border-radius: 10px;
+}
+

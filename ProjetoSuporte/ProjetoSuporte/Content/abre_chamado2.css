@@ -1,0 +1,40 @@
+﻿body {
+
+    
+}
+
+div#abreChamado2{
+    background-color:deepskyblue;
+    text-align:center;
+    color:white;
+}
+
+div#abreChamado2 h1{
+   
+    margin-top:-10px;
+    color:white;
+   
+}
+
+p#mensagem{
+    font-size:20pt;
+    color:black;
+    font-family:Kokila;
+   
+}
+ table{
+     
+     margin-left:45%;
+     
+ }
+
+a{
+    text-decoration:none; 
+    
+}
+
+a:hover{
+    color:white;
+}
+
+

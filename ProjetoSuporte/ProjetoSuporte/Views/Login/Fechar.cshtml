@@ -1,0 +1,61 @@
+﻿@model ProjetoSuporte.Models.Madmin
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/_SiteLayout.cshtml";
+    string NChamado = Session["NChamado"].ToString();
+    int nchamado = Convert.ToInt32(NChamado);
+    ProjetoSuporte.Models.Usuario usuario = new ProjetoSuporte.Models.Usuario();
+
+    DadosSuporte dados = new DadosSuporte();
+    var DadosLogin = dados.os.Single(c => c.os_nos.Equals(nchamado));
+    int idLogin = DadosLogin.login_id;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fechar</title>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>
+<fieldset>
+    @using (Html.BeginForm("Fecha2", "Login", null, FormMethod.Post))
+    {
+
+        <legend>AbreChamado</legend>
+        <section>
+            @{ 
+                foreach (var ds in usuario.DadosUsuario(idLogin))
+                {
+            <div>
+               <label>Nº CHamado: @NChamado</label>
+                <fieldset>
+                    <label>Nome: @ds.Nome</label>
+                    <label>Setor:@ds.Setor</label>
+                </fieldset>
+                <fieldset>
+                    <label>Problema: </label>
+                    <label>Detalhes: Nada funciona aqui</label>
+                </fieldset>
+                <label>Detalhes do Problema:</label>
+                @Html.LabelFor(model => Model.solucao)
+                @Html.TextAreaFor(model => Model.solucao)
+
+               
+            </div>
+                    }
+                }
+        @*<div>@Html.TextAreaFor(model => Model.Detalhe, new { @cols = "13", @rows = "10", style = " resize:none; text-align:center; ", @placeholder = "Digite seu problema aqui" })</div>*@
+
+            <div><input type="submit" value="Fechar" /></div>
+
+        </section>
+
+    }
+</fieldset>

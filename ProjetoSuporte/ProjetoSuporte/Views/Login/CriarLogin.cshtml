@@ -1,0 +1,54 @@
+﻿@IsPost{ 
+@model ProjetoSuporte.Models.Usuario
+
+@{
+    ViewBag.Title = "CriaLogin";
+    Layout = "~/_SiteLayout.cshtml";
+
+
+}
+
+
+@using (Html.BeginForm("Cria", "Login", null, FormMethod.Post))
+{
+    <fieldset>
+        <legend>Teste</legend>
+        <div><strong>@Html.LabelFor(model => Model.Nome)</strong> </div>
+        <div>@Html.TextBoxFor(model => Model.Nome)</div>
+        @Html.ValidationMessageFor(model => Model.Nome)
+
+        <div><strong>@Html.LabelFor(model => Model.matricula)</strong> </div>
+        <div>@Html.TextBoxFor(model => Model.matricula)</div>
+        @Html.ValidationMessageFor(model => Model.matricula)
+
+        <div><strong>@Html.LabelFor(model => Model.Senha)</strong> </div>
+        <div>@Html.TextBoxFor(model => Model.Senha)</div>
+        @Html.ValidationMessageFor(model => Model.Senha)
+
+        <div><strong>@Html.LabelFor(model => Model.Setor)</strong> </div>
+        <div>
+            @Html.DropDownListFor(model => Model.Setor, new List<SelectListItem> {
+             new SelectListItem {Text = "Informática",Value = "1" },
+             new SelectListItem { Text = "RH", Value = "2" },
+             new SelectListItem {Text = "DP",Value = "3" }
+         })
+        </div>
+
+        <div><strong>@Html.LabelFor(model => Model.Acesso)</strong> </div>
+        <div>
+            @Html.DropDownListFor(model => Model.Acesso, new List<SelectListItem> {
+             new SelectListItem {Text = "normal",Value = "3" },
+             new SelectListItem { Text = "Administrador", Value = "1" },
+             new SelectListItem {Text = "Gerente",Value = "2" }
+         })
+    </div>
+
+    @Html.ValidationMessageFor(model => Model.Acesso)
+    <br />
+    <input type="submit" value="Salvar" />
+
+</fieldset>
+
+}
+
+}

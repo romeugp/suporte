@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/_SiteLayout.cshtml";
+    Int32  NChamado = Convert.ToInt32(Request.QueryString["NChamado"]);
+    Session["NChamado"] = NChamado;
+    
+    ProjetoSuporte.Models.Mchamado chamado = new ProjetoSuporte.Models.Mchamado();
+    DadosSuporte dados = new DadosSuporte();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script type="text/javascript">
+        function Nova() {
+            location.href = "~/Views/Login/resolver.cshtml"
+
+            
+        }
+    </script>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/administrador.css" rel="stylesheet" />
+    <title>Detalhes</title>
+</head>
+<body>
+
+  @using (Html.BeginForm("resolver", "Login", null, FormMethod.Post))
+  {
+
+      var Query = (from u in dados.os
+                   where u.os_nos == NChamado
+                   select u).SingleOrDefault();
+        <fieldset>
+            <p>Chamado: @NChamado</p>        
+            <p>Situação:@chamado.situacao(@Query.os_situacao)</p>
+            <p>Problema: @chamado.escolha(@Query.os_escolha)</p>
+            <p>Aberto: @Query.os_dataa </p>
+            @{
+                if ((Query.os_dataf.ToString() != "01/01/1900 00:00:00") && (Query.os_situacao == 2))
+                {
+                    <p>Fechado: @Query.os_dataf</p>
+                }
+            }
+        
+            <div>
+                <label style="color:black">Detalhes</label>
+                <textarea>@Query.os_detalhe</textarea>
+            </div>
+        </fieldset>
+
+                if (Query.os_situacao == 3)
+                {
+                    Session["situacao"] = "3";
+                   <input type="submit" value="Fechar" />
+
+                }
+                else if (Query.os_situacao == 1)
+                {
+                    Session["situacao"] = "1";
+                    <input type="submit" value="Resolver"/>
+
+                    }
+
+  }
+</body>
+</html>

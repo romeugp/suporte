@@ -1,0 +1,29 @@
+﻿body {
+}
+
+fieldset {
+    position: relative;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+    margin-bottom: 5%;
+    background-color: #2980b9;
+    width: 60%;
+    height: 350px;
+}
+
+    fieldset input {
+        margin-bottom: 1px;
+        height: 30px;
+        width: 40%;
+    }
+
+input#botao {
+    margin-top: 1%;
+    height: 40px;
+    width: 20%;
+}
+h1#titulo{
+    text-align:center;
+}

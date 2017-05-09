@@ -1,0 +1,477 @@
+﻿
+@model ProjetoSuporte.Models.BuscaChamado
+@{
+    ViewBag.Title = "Administrador";
+    Layout = "~/_SiteLayout.cshtml";
+
+    ProjetoSuporte.Models.Madmin chamado = new ProjetoSuporte.Models.Madmin();
+    DadosSuporte dados = new DadosSuporte();
+
+}
+<html>
+<head>
+    <link href="~/Content/administrador.css" rel="stylesheet" />
+
+    <style>
+        .aparece {
+            color: black;
+        }
+
+        .some {
+            color: red;
+        }
+    </style>
+
+    <script>
+
+        function some() {
+
+            if (document.getElementById("1").className == "aparece")
+
+            { document.getElementById("1").className = "some"; }
+
+            else {
+
+                document.getElementById("1").className = "aparece";
+
+            }
+
+        }
+        setInterval("some()", 1000);
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>
+<nav id="menu">
+    <ul id="menu">
+        <li>  @Html.Action("MenuAdmin", "Login") </li>
+    </ul>
+</nav>
+<nav id="menu2">
+    <ul id="menu2">
+        <li id="1" class="aparece">Abertos:0 <br /> Fechados:0</li>&nbsp;&nbsp;&nbsp;&nbsp; <li id="2">Resolvendo:0 <br />Urgentes:0</li>&nbsp;&nbsp; <li id="3">Normais:0 <br />Urgentes abertos:0</li>
+    </ul>
+</nav>
+
+@using (Html.BeginForm("AcompanhaChamado", "AbreChamado", null, FormMethod.Post))
+{
+    <fieldset>
+        <div id="filtros">
+            <ul>
+                <li id="nchamado">
+                    <div id="btnFiltro">
+                        @Html.LabelFor(model => Model.nchamado)
+                        @Html.TextBoxFor(model => Model.nchamado, new { style = "  text-align:center; margin-top:0px;width:75px; height:12px; ", @placeholder = "n° os" })
+                    </div>
+                </li>
+                <li id="status">
+
+                    @Html.LabelFor(model => Model.status)
+                    @Html.DropDownListFor(model => Model.status, new List<SelectListItem> {
+                     new SelectListItem {Text = "Selecione",Value = "0" },
+                     new SelectListItem { Text = "Aberto", Value = "1" },
+                     new SelectListItem {Text = "Fechado",Value = "2" },
+                     new SelectListItem {Text = "Andamento",Value = "3" }
+                     }, new { style = "  width:100px; height:23px; " })
+
+                </li>
+
+                <li>  &nbsp;&nbsp;
+
+                <li id="mes">
+
+                    @Html.LabelFor(model => Model.mes)
+                    @Html.DropDownListFor(model => Model.mes, new List<SelectListItem> {
+             new SelectListItem {Text = "Selecione",Value = "0" },
+             new SelectListItem {Text = "Janeiro",Value = "1" },
+             new SelectListItem { Text = "Fevereiro", Value = "2" },
+             new SelectListItem {Text = "Março",Value = "3" },
+             new SelectListItem {Text = "Abril",Value = "4" },
+             new SelectListItem { Text = "Maio", Value = "5" },
+             new SelectListItem {Text = "Junho",Value = "6" },
+             new SelectListItem {Text = "Julho",Value = "7" },
+             new SelectListItem { Text = "Agosto", Value = "8" },
+             new SelectListItem {Text = "Setembro",Value = "9" },
+             new SelectListItem {Text = "Outubro",Value = "10" },
+             new SelectListItem { Text = "Novembro", Value = "11" },
+             new SelectListItem {Text = "Dezembro",Value = "12" }
+
+             }, new { style = "  width:84px; height:23px; " })
+
+                </li>
+                <li id="ano">
+
+                    @Html.LabelFor(model => Model.ano)
+                    @Html.TextBoxFor(model => Model.ano, new { style = "  text-align:center;margin:0px; width:60px; height:12px; ", @placeholder = "Ano" })
+
+                </li>
+
+                <li id="Filtrar">
+
+                  Filtro: <input type="submit" id="filtro" value="" />
+
+                </li>
+            </ul>
+        </div>
+
+        <fieldset>
+            <legend>Histórico de Chamados</legend>
+
+            @{
+                //Filtros
+                int id = Convert.ToInt32(Session["id"]);
+
+                //busca Todos os 400 primeiros
+                if (((Model.status == 0) || (Model.status.Equals(null))) && ((Model.ano == 0) || (Model.ano.Equals(null))) && ((Model.mes == 0) || (Model.mes.Equals(null))) && ((Model.nchamado == 0)||(Model.nchamado.Equals(null))))
+                {
+
+                    var grid = new WebGrid(source: chamado.Q400(),
+
+                                           rowsPerPage: 20,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_situacao",
+                                           fieldNamePrefix: "gridItens_",
+                                           pageFieldName: "inside",
+                                           selectionFieldName: "selectedRow"
+
+                                           );
+
+
+                    @grid.GetHtml(
+tableStyle: "webgrid",
+rowStyle: "row",
+headerStyle: "head",
+alternatingRowStyle: "alt",
+columns: grid.Columns(
+grid.Column("Situacao", header: "Situação"),
+grid.Column("Escolha", header: "Problema"),
+grid.Column("Detalhe", header: "Detalhes do problema"),
+grid.Column("DataA", header: "Data de abertura"),
+grid.Column(format: (item) =>
+                    Html.ActionLink("Detalhes", "detalhesAdmin",
+                    new { NChamado = item.NChamado }))
+))
+                }
+                //busca sómente pelo numero do chamado
+                else if ((Model.nchamado != 0) && (Model.status == 0) && (Model.dia == 0) && (Model.ano == 0) && (Model.mes == 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QNChamado(Model.nchamado),
+                                           rowsPerPage: 2
+                                           );
+
+                    @grid.GetHtml(
+                          tableStyle: "webgrid",
+                          headerStyle: "head",
+                          alternatingRowStyle: "alt",
+                         columns: grid.Columns(
+                             grid.Column("NChamado", header: "Nº Chamado"),
+                             grid.Column("Situacao", header: "Situação"),
+                             grid.Column("Escolha", header: "Problema"),
+                             grid.Column("Detalhe", header: "Detalhes do problema"),
+                             grid.Column("DataA", header: "Data de abertura"),
+                             grid.Column("DataF", header: "Data de fechamento")))
+
+
+                }
+                //Somente os abertos
+                else if ((Model.nchamado == 0) && (Model.status == 1) && (Model.ano == 0) && (Model.mes == 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QAbertos(),
+                                    rowsPerPage: 7,
+                                    canPage: true,
+                                    canSort: true,
+                                    defaultSort: "os_nos"
+                                    );
+
+                    @grid.GetHtml(
+                              tableStyle: "webgrid",
+                              headerStyle: "head",
+                              alternatingRowStyle: "alt",
+                            columns: grid.Columns(
+                                grid.Column("NChamado", header: "Nº Chamado"),
+                                grid.Column("Situacao", header: "Situação"),
+                                grid.Column("Escolha", header: "Problema"),
+                                grid.Column("Detalhe", header: "Detalhes do problema"),
+                                grid.Column("DataA", header: "Data de abertura"),
+                                grid.Column("DataF", header: "Data de fechamento")))
+
+
+                }
+                //Somente os fechados
+                else if ((Model.nchamado == 0) && (Model.status == 2) && (Model.ano == 0) && (Model.mes == 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QFechados(),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+
+
+                }
+                //Somente abertos do mes
+                else if ((Model.nchamado == 0) && (Model.status == 1) && (Model.ano == 0) && (Model.mes != 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QAbertoMes(Model.mes),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+                //somente os fechados do mes
+                else if ((Model.nchamado == 0) && (Model.status == 2) && (Model.ano == 0) && (Model.mes != 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QFechadosMes(Model.mes),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                    tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+                //somente os abertos do mes do ano
+                else if ((Model.nchamado == 0) && (Model.status == 1) && (Model.ano != 0) && (Model.mes != 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QAbertoMesAno(Model.mes, Model.ano),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+                //somente os fechados do mes do ano
+                else if ((Model.nchamado == 0) && (Model.status == 2) && (Model.ano != 0) && (Model.mes != 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QFechadoMesAno(Model.mes, Model.ano),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+                //somente os abertos do ano
+                else if ((Model.nchamado == 0) && (Model.status == 1) && (Model.ano != 0) && (Model.mes == 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QAbertosAno(Model.ano),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+                //somente os fechados do ano
+                else if ((Model.nchamado == 0) && (Model.status == 2) && (Model.ano != 0) && (Model.mes == 0))
+                {
+                    WebGrid grid = new WebGrid(source: chamado.QFechadosAno(Model.ano),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+                //todos do mes do ano
+                else if ((Model.nchamado == 0) && (Model.status == 0) && (Model.ano != 0) && (Model.mes != 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QTodosMesAno(Model.mes, Model.ano),
+                                           rowsPerPage: 7,
+                                           canPage: true,
+                                           canSort: true,
+                                           defaultSort: "os_nos"
+                                           );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+
+                //todos do mes
+                else if ((Model.nchamado == 0) && (Model.status == 0) && (Model.ano == 0) && (Model.mes != 0))
+                {
+
+                    var grid = new WebGrid(source: chamado.QTodosMes(Model.mes),
+                        rowsPerPage: 7,
+                        canPage: true,
+                        canSort: true,
+                        defaultSort: "os_nos"
+                        );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+
+
+                }
+                //todos do ano
+                else if ((Model.nchamado == 0) && (Model.status == 0) && (Model.ano != 0) && (Model.mes == 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QTodosAno(Model.ano),
+                                                 rowsPerPage: 7,
+                                                canPage: true,
+                                                canSort: true,
+                                                defaultSort: "os_nos"
+                                                );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+                }
+
+                //Todos em andamento
+                else if ((Model.nchamado == 0) && (Model.status == 3) && (Model.ano == 0) && (Model.mes == 0))
+                {
+
+                    WebGrid grid = new WebGrid(source: chamado.QAndamento(),
+                                                 rowsPerPage: 7,
+                                                canPage: true,
+                                                canSort: true,
+                                                defaultSort: "os_nos"
+                                                );
+
+                    @grid.GetHtml(
+                                     tableStyle: "webgrid",
+                                     headerStyle: "head",
+                                     alternatingRowStyle: "alt",
+                                   columns: grid.Columns(
+                                       grid.Column("NChamado", header: "Nº Chamado"),
+                                       grid.Column("Situacao", header: "Situação"),
+                                       grid.Column("Escolha", header: "Problema"),
+                                       grid.Column("Detalhe", header: "Detalhes do problema"),
+                                       grid.Column("DataA", header: "Data de abertura"),
+                                       grid.Column("DataF", header: "Data de fechamento")))
+
+
+                }
+
+            }
+
+        </fieldset>
+       <div>
+         ID:  @Session["id"]<br />
+         Mat: @Session["matricula"]<br />
+         Nom:  @Session["nome"]
+       </div>
+    </fieldset>
+
+                }

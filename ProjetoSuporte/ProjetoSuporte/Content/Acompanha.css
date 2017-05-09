@@ -1,0 +1,90 @@
+﻿body {
+}
+
+li {
+    color: red;
+    display: inline-block;
+    list-style: none;
+}
+
+.webgrid {
+    background-color: white;
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: -10px;
+}
+
+    .webgrid a {
+        color:darkred;
+    }
+    .webgrid a:hover{
+        color: red;
+    }
+
+
+.alt {
+    background-color: lightgrey;
+    text-align: center;
+}
+
+td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    padding-right: 20px;
+    padding-left: 20px;
+    max-width: 200px;
+}
+
+th {
+    background-color: white;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+h2#Acompanha {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+div#filtros {
+    text-decoration: none;
+    padding-top: 10px;
+    text-align: center;
+    width: 100%;
+    /*background-color:dodgerblue;*/
+    background-color: #4193e5;
+    height: 50px;
+}
+
+input#filtro {
+    width: 45px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+label {
+    color: white;
+    font-size: 12pt;
+}
+/*Inputs do filtro*/
+li#nchamado {
+    height: 50px;
+    margin-right: 5px;
+}
+
+li#ano {
+    margin-left: 5px;
+}
+
+fieldset#dados {
+    margin-top: 5px;
+}
+
+a {
+    background: none;
+    text-decoration: none;
+}

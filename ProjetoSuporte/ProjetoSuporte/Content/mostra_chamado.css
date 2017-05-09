@@ -1,0 +1,25 @@
+﻿body {
+
+}
+
+table#tabela{
+    text-align:center;
+    border-spacing:0px;
+    margin:auto;
+}
+
+th{
+    text-align:center;
+}
+
+table#tabela tr#dois{
+  background-color: #00BFFF;
+}
+
+    td,th, tf {border:solid 0.5px #000; padding:10px;}
+	th {background-color:#999; }
+	caption {font-size:x-large;}
+	colgroup {background:#F60; }
+	.coluna1 {background:#F66; }
+	.coluna2  {background:#F33;}
+	.coluna3  {background:#F99;}

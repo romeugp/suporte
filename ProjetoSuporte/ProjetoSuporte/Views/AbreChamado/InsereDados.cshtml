@@ -1,0 +1,43 @@
+﻿@model ProjetoSuporte.Models.Chamado
+@{
+    ViewBag.Title = "InsereDados";
+    Layout = "~/_SiteLayout.cshtml";
+    ProjetoSuporte.Models.Usuario gravaDtOs = new ProjetoSuporte.Models.Usuario();
+    string id = 0.ToString();
+    try
+    {
+         id = Session["id"].ToString();
+
+    }catch(Exception e)
+    {
+         id = 0.ToString();
+    }
+
+}
+<html>
+  <head>
+      <link href="~/Content/InsereChamados.css" rel="stylesheet" /> 
+  </head>
+<body>
+
+</body>
+</html>
+<h2>Nº do chamado</h2>
+<fieldset>
+    
+    <nav id="menu">
+        <ul id="menu">
+            <li>@Html.Action("Menu", "Login")</li>
+        </ul>
+    </nav>
+        @using (Html.BeginForm("Usuario", "Login", null, FormMethod.Post))
+        {
+            gravaDtOs.gravaDtOs(id,Model.Escolha);
+            int NChamado = Model.IncluiDados();
+
+            <h1 id="mensagem">Anote o nº do seu chamado.<br /> Ele será inportante para consultas e acompanhamentos</h1>
+            <p id="NumeroChamado"> @NChamado</p>
+        }
+</fieldset>
+
+

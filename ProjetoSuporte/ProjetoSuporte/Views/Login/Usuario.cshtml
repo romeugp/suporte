@@ -1,0 +1,200 @@
+﻿@model ProjetoSuporte.Models.Usuario
+
+@{
+    //Guarda o usuario
+    Session["matricula"] = Model.matricula;
+    string nchamado;
+    bool ok_usuario = false;
+    bool ok_administrador = false;
+
+    ViewBag.Title = "Usuario";
+    ViewBag.os = "0";
+    Layout = "~/_SiteLayout.cshtml";
+
+    DadosSuporte dados = new DadosSuporte();
+    ProjetoSuporte.Models.Mchamado chamado = new ProjetoSuporte.Models.Mchamado();
+
+    var Query = (from u in dados.login
+                 where u.login_matricula == Model.matricula
+                 select u).SingleOrDefault();
+
+    //Guarda o id atual
+    Session["id"] = Query.login_id;
+    int IdUsuario = Convert.ToInt32(Session["id"]);
+    //Guarda o nome
+    Session["nome"] = Query.login_login;
+
+}
+@{ 
+
+    var Query_os = (from u in dados.os select u);
+
+    foreach(var t in Query_os)
+    {
+        if (t.os_ok_administrador == true)
+        {
+            ok_administrador = true;
+        }
+        else
+        {
+            ok_administrador = false;
+        }
+        if (t.os_ok_usuario)
+        {
+            ok_usuario = true;
+        }
+        else
+        {
+            ok_usuario = false;
+        }
+        if((ok_administrador == true) && (ok_usuario == false))
+        {
+            Session["os"] = t.os_nos.ToString();
+            break;
+        }
+
+    }
+
+}
+<nav id="menu">
+    <ul id="menu">
+        @{
+            if (ok_administrador == true && ok_usuario == false)
+            {
+                var p = (from u in dados.os where u.os_ok_administrador || ok_usuario && u.login_id == IdUsuario select u).First();
+
+                <li>  @Html.Action("Menu2", "Login") </li>
+                @*<li>  @Html.Action("Menu2", "Login") </li>*@
+            }
+            else
+            {
+                <li>  @Html.Action("Menu", "Login") </li>
+            }
+        }
+        
+    </ul>
+</nav>
+@{ 
+    ok_administrador = false;
+    ok_usuario = false;
+}
+<html>
+<head>
+    <link href="~/Content/usuario.css" rel="stylesheet" /> 
+    <link href="~/Content/gallery.css" rel="stylesheet" />
+    <link href="~/Content/gallery.theme.css" rel="stylesheet" />
+    <link href="~/Content/notificacoes.css" rel="stylesheet" />
+ </head>
+<body>
+    <div id="bg"></div>
+    <div class="box">
+        <p id="paragrafo"> Há um chamado a ser fechado<br />@Html.ActionLink("Clique Aqui","FechaUsuario","Login")  </p>
+        
+    </div>
+
+    <fieldset id="principal">
+        @*<legend>Histórico de Chamados</legend>
+
+        <div class="gallery items-3">
+            <div id="item-1" class="control-operator"></div>
+            <div id="item-2" class="control-operator"></div>
+            <div id="item-3" class="control-operator"></div>
+
+            <figure class="item">
+                <img src="~/Images/img1.jpg" />
+                <figcaption>
+                    <h2 style="color:white" id="dicas">Dicas</h2>
+                    <p style="font-size:22pt" id="letra"><strong>Você também pode fazer parte do suporte</strong><br /><br />
+                    Saiba de algumas dicas básicas para agilizar o suporte<br />
+                    Existem 3 bolinhas em cima do título "Dicas".<br />
+                    Clique nas bolinhas para ler as dicas                   
+                    </p>
+                </figcaption>
+            </figure>
+
+            <figure class="item">
+                <img src="~/Images/img2.jpg" />
+                <figcaption>
+                    <h2 style="color:white">Dicas básicas de manutenção</h2>
+                    <p style="font-size:22pt" id="letra">
+                        <strong>Máquin não liga</strong><br />
+                        1 - Verifique se somente sua máquina não liga; caso sim, verifique se está ligada na tomada  <br />
+                        2 - Verifique se a máquina emite algum ruído, caso emita, confira se o monitor está ligado  <br />
+                        3 - Caso nehnuma das alternativas acima, abra um chamado  <br />
+                    </p>
+                </figcaption>
+            </figure>
+
+            <figure class="item">
+                <img src="~/Images/img4.jpg" />
+                <figcaption>
+                    <h2 style="color:white">Dicas básicas de manutenção</h2>
+                    <p style="font-size:22pt" id="letra">
+                        <strong>Programa não abre/Pasta não conecta</strong><br /><br />
+                        1 - Reinicie sua máquina adequadamente; clicando no iniciar e reiniciar<br />
+                        Aguarde a inicialização. Tenha paciência, pode demorar um pouco a inicialização  <br />
+                       Caso mesmo com a reinicialização o programa não abra, 
+
+                    </p>
+                </figcaption>
+            </figure>
+
+
+            <div class="controls" id="controles">
+                <a href="#item-1" class="control-button">•</a>
+                <a href="#item-2" class="control-button">•</a>
+                <a href="#item-3" class="control-button">•</a>
+            </div>
+        </div>
+
+        <div class="gallery autoplay items-3"></div>
+       
+        <div id="pop">
+            <a id="fecha" href="#" onclick="document.getElementById('pop').style.display='none';"><img src="~/Icone/11291_128x128.png" /> </a>
+            <br />
+            <article>
+                <h1>Cuidados básicos e simples para garantir uma melhor conservação e funcionamento de cada computador </h1>
+                <div>
+                    <ul>
+                        <li>
+                            <h2>Localização:</h2>
+                            <p>
+                                Deve-se deixar um espaço livre de cerca de 10 centímetros na parte traseira do micro<br />
+                                para facilitar a saída do ar quente e também deixar liberada a parte frontal para entrada de<br />
+                                ar para evitar o superaquecimento.
+                            </p>
+                        </li>
+                        <li>
+                            <h2>Não coma perto do computador:</h2>
+                            <p>
+                                A queda de líquidos sobre o equipamento pode causar curtos circuitos e estragar os<br /> componentes, além de atrair insetos e roedores.
+                            </p>
+                        </li>
+                        <li>
+                            <h2>Desligue e ligue o computador corretamente:</h2>
+                            <p>
+                                Ao desligar a máquina,feche todas as aplicações,aguarde os procedimentos do sistema, assim você evita a perda<br /> de dados e outras complicações<br />
+                                <strong>
+                                    Em hipótese alguma, desligue o computador pressionando durante alguns segundo o botão de "desligar"<br />
+                                    do gabinete(torre), ou puxando o fio da tomada quando ligada.<br /> Isso, além de causar danos muitas das vezes irreversíveis ao sistema operacional,causa perda<br />
+                                    de dados do próprio utilizador, como documentos, emails etc...
+                                </strong>
+                            </p>
+                        </li>
+
+                    </ul>
+                    <h2 id="atencao">Atenção</h2>
+                    <div style="text-align:justify; margin-left:4%">
+                        <p><strong>Horário de almoço e lanche:</strong> desligar o monitor da estação de trabalho.</p>
+                        <p><strong>Ao término do expediente:</strong> desligar de forma correta as<b> estações de trabalho e as impressoras</b></p>
+                        <p>Utilizar este sistema para abrir chamados referentes a problemas com hardware e sistemas operacionais.</p>
+                        <p><strong><u>Solicitamos aos responsáveis de cada setor que se atentem ao cumprimento dos cuidados acima.</u></strong></p>
+                    </div>
+                     </div>
+            </article>
+            <div>Obrigado!, Equipe informática</div>
+        </div>*@
+
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿body {
+}
+
+h2 {
+    text-align: center;
+}
+
+fieldset {
+    position: relative;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 5%;
+    background-color: #2980b9;
+    width: 60%;
+    height: 380px;
+    box-shadow: 1px 1px 4px black;
+    border: 5px outset black;
+}
+
+input {
+    margin-top: 1%;
+    height: 40px;
+    width: 20%;
+}
+
+input#PrazoFinal{
+    height:20px;
+    width:85px;
+}
+button.ui-button-icon-only {
+    width: 1.7em;
+    height:1.7em;
+    
+}
+div#filtros{
+    background-color:red;
+    
+}

@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/_SiteLayout.cshtml";
+    int nChamado;
+    string Problema = "";
+    string Detalhe = "";
+    string nome = "";
+    DateTime data_abertura = DateTime.Now ;
+    String Hora_Abertura = "";
+    string DataHora = data_abertura + " " + Hora_Abertura;
+    DateTime data_Fechamento = DateTime.Now;
+    string NChamado = Request.QueryString["NChamado"];
+    string Situacao = "";
+    ProjetoSuporte.Models.Mchamado chamado = new ProjetoSuporte.Models.Mchamado();
+    DadosSuporte dados = new DadosSuporte();
+    
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/detalhes.css" rel="stylesheet" />
+    <title>Detalhes</title>
+</head>
+<body>
+    <nav id="menu">
+        <ul id="menu">
+            <li>  @Html.Action("MenuDetalhes", "AbreChamado") </li>
+        </ul>
+    </nav>
+
+    @{
+
+        foreach (var i in chamado.QNChamado(Convert.ToInt32(NChamado)))
+        {
+            Situacao = i.Situacao;
+            nChamado = i.NChamado;
+            Problema = i.Escolha;
+            Detalhe = i.Detalhe;
+            data_abertura = i.DataA;
+            Hora_Abertura = i.DataA.TimeOfDay.ToString();
+            
+        }
+    }
+    <div id="titulo"> 
+        <label id="nchamado">Nº Do Chamado:<strong> @NChamado</strong> </label>
+        <br />
+        <fieldset id="principal">
+            <div id="conteudo-left">
+
+                @{
+                    if (Situacao == "Fechado")
+                    {
+                        <label> Fechado: <strong>@data_Fechamento</strong></label>
+                    }
+                    if (Situacao.Equals("Fechado"))
+                    {
+                        <div id="fechado">@Situacao</div>
+                    }
+                    else
+                    {
+                        <div id="situacao"> Situação: @Situacao</div>
+                        if (Situacao == "Andamento" || Situacao == "Fechado")
+                        {
+                            nome = chamado.NomeResolvendo(Convert.ToInt32(NChamado));//Nº chamado
+                            <div>Suporte: @nome</div>
+                        }
+                    }
+
+                }
+            </div>
+            <div id="conteudo-right">
+                <h1 id="legedtext">Detalhe</h1>
+                <input id="texto" type="text" value="@Detalhe" disabled="disabled" />
+            </div>
+         </fieldset>
+    
+    </div>
+</body>
+</html>

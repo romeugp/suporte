@@ -1,0 +1,118 @@
+﻿
+body {
+   background-color:white;
+   height:145px;
+   margin-bottom:0px;
+   padding-bottom:-50px;
+}
+ li{
+    
+    display: inline-block;
+    list-style:none;
+}
+
+.webgrid { 
+    background-color:white;
+    text-align:center;
+    border-collapse: collapse ; 
+    width : 100%;
+    margin-top:-10px;
+}
+
+.alt { 
+    background-color: lightgrey ; 
+    text-align:center;
+
+}
+td{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
+    text-align:center;
+    padding-right:20px;
+    padding-left:20px;
+    max-width:200px;
+}
+ th{
+     background-color:white;
+     border-bottom:1px solid black;
+     text-align:center;
+     
+ }
+
+ h2{
+     margin-top:10px;
+     text-align:center;
+ }
+
+ div#filtros{
+     
+     width:100%;
+     height:65px;
+     /*background-color:dodgerblue;*/
+     background-color:#4193e5;
+ }
+ /*div#test{
+     margin-top:-50px;
+     margin-left:0px;
+     position:relative;
+     opacity:0.2;
+     background-color:black;
+     width:100%;
+     height:50px;
+ }*/
+
+input#filtro {
+    width:50px;
+    background-repeat:no-repeat;
+    background-size:25px;
+    background-image: url('../Icone/busca32x32.png');
+    background-position:center;
+    padding-right:2px;
+    font-size:9pt;
+    text-align:left;
+    height: 35px;
+    border-radius: 10px;
+}
+
+ label{
+     
+     color:white;
+     font-size:12pt;
+ }
+ /*Inputs do filtro*/
+ li#nchamado{
+ height:50px;
+ margin-right:5px;
+ }
+ li#ano{
+     margin-left:5px;
+ }
+ li#Filtrar{
+     font-weight:bold;
+     margin-left:15px;
+     color:white;
+ }
+
+  /* menu
+----------------------------------------------------------*/
+nav#menu2{
+    padding:10px;
+    position:relative; 
+    height:50px;
+    left:0%;
+    width:100%;
+    background-color:silver;
+}
+ul#menu2 {
+    margin: 0 0 1px;
+    padding: 0;
+}
+ul#menu2 li {
+
+}
+
+a{
+    text-decoration:none; 
+}

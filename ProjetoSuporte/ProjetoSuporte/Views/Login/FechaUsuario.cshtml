@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "FechaUsuario";
+    Layout = "~/_SiteLayout.cshtml";
+    int nChamado = Convert.ToInt32(Session["os"]);
+    string Problema = "";
+    string Detalhe = "";
+    string nome = "";
+    string NChamado = nChamado.ToString(); /*Request.QueryString["NChamado"];*/
+    string Situacao = "";
+    String Hora_Abertura = "";
+    int id = Convert.ToInt32(Session["id"]);
+    DateTime data_abertura = DateTime.Now;
+
+    string DataHora = data_abertura + " " + Hora_Abertura;
+    DateTime data_Fechamento = DateTime.Now;
+
+    ProjetoSuporte.Models.Mchamado chamado = new ProjetoSuporte.Models.Mchamado();
+    DadosSuporte dados = new DadosSuporte();
+    @*@chamado.fechaUsuario(nChamado);*@
+
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/detalhes.css" rel="stylesheet" />
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <title>Detalhes</title>
+
+    <script>
+        function funcao1()
+        {
+            setTimeout('funcao2()', 2000)
+            alert("O Chamado Foi fechado com Sucesso!");
+              
+        }
+        function funcao2() {
+            window.location.reload();
+
+        }
+        function funcao3() {
+            window.location.replace("http://pt.stackoverflow.com");
+        }
+    </script>
+    
+</head>
+<body>
+
+
+    @{
+
+        foreach (var i in chamado.QNChamado(Convert.ToInt32(NChamado)))
+        {
+            Situacao = i.Situacao;
+            nChamado = i.NChamado;
+            Problema = i.Escolha;
+            Detalhe = i.Detalhe;
+            data_abertura = i.DataA;
+            Hora_Abertura = i.DataA.TimeOfDay.ToString();
+
+        }
+    }
+    <div>
+@using (Ajax.BeginForm("FechaUsuario", "Login",new AjaxOptions {HttpMethod = "Post",InsertionMode = InsertionMode.Replace,UpdateTargetId = "divteste" } ) )
+{
+    
+        <fieldset>
+             
+            <legend>Detalhes</legend>
+            <label id="nchamado">Nº Do Chamado:<strong> @NChamado</strong> </label>
+            <div id="detalhe">
+                <section id="corpo">
+
+                    <label><strong>Problema<br /></strong> </label>
+                    <div id="problema">@Problema</div>
+
+                    <div id="dataHora">
+                        <label>Data de abertura:<strong> @data_abertura </strong></label>
+                        @{
+                            if (Situacao == "Fechado")
+                            {
+                                <label> Data de fechamento: <strong>@data_Fechamento</strong></label>
+                            }
+
+                        }
+
+                        @{
+                            if (Situacao.Equals("Fechado"))
+                            {
+                                <div id="fechado">@Situacao</div>
+                            }
+                            else
+                            {
+
+                                <div id="situacao"> Situação: @Situacao  </div>
+                                if (Situacao == "Andamento" || Situacao == "Fechado")
+                                {
+                                    nome = chamado.NomeResolvendo(Convert.ToInt32(NChamado));//Nº chamado
+                                    <div>Suporte: @nome</div>
+                                }
+
+                            }
+                        }
+                    </div>
+                </section>
+                <aside id="lateral">
+                    <div id="dproblema">
+                        <label id="ldproblema">Detalhe do Problema:</label>
+                        <textarea readonly="readonly">@Detalhe</textarea>
+                    </div>
+                </aside>
+            </div>
+            
+            @*<input type="datetime" readonly="readonly" value=Hora:@data_Fechamento.Now.TimeOfDay style="width:15%"/>*@
+        </fieldset>
+      <div id="divteste">  
+          @{
+
+              if (Situacao == "Fechado")
+              {
+                
+              }
+              else
+              {
+                <input type="submit" value="Fechar" onclick="funcao1()"/>
+              }
+
+        }
+
+         @*===========================================================================
+          Menu*@
+          <nav id="menu">
+              @{
+                  if (Situacao == "Fechado")
+                  {
+                      <ul id="menu">
+                          <li>  @Html.Action("Menu", "Login") </li>
+                      </ul>
+                  }
+
+              }
+          </nav>
+      </div>
+            }
+    </div>
+    
+</body>
+</html>
+
+
+
+

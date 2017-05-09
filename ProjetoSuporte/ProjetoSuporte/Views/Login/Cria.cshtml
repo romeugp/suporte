@@ -1,0 +1,31 @@
+﻿@model ProjetoSuporte.Models.Usuario
+@{
+    ViewBag.Title = "Cria";
+    Layout = "~/_SiteLayout.cshtml";
+}
+
+
+@{
+    using (Html.BeginForm("CriarLogin", "Login", null, FormMethod.Post))
+    {
+
+        <fieldset>
+            <legend>Confirmação</legend>
+            @if (Model.verifica() == true)
+            {
+                <div>A mátricula já está em uso</div>
+            }
+            else
+            {
+                <div>Dados salvos com sucesso</div>
+            }
+
+            <br /><br />
+            <div><input type="submit" value="OK" /></div>
+            <br />
+
+        </fieldset>
+
+    }
+
+}

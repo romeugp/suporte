@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "AcompanhaChamado";
+    Layout = "~/_SiteLayout.cshtml";
+
+    string NChamado = Session["NChamado"].ToString();
+    string Id = Session["id"].ToString();
+    int situ = Convert.ToInt32(Session["situacao"]);
+
+    if (NChamado == null)
+    {
+        Response.Redirect("/Default/Index");
+    }else if (situ == 1)
+    {
+        int nchamado = Convert.ToInt32(NChamado);
+        int _id = Convert.ToInt32(Id);
+        ProjetoSuporte.Models.Madmin chamado = new ProjetoSuporte.Models.Madmin();
+        DadosSuporte dados = new DadosSuporte();
+
+        var situacao = dados.os.Single(c => c.os_nos.Equals(nchamado));
+        situacao.os_situacao = 3;
+        dados.SaveChanges();
+        chamado.SalvaAndamento(_id,nchamado);
+        Response.Redirect("Usuario");
+
+    }else if (situ == 3)
+    {
+        int nchamado = Convert.ToInt32(NChamado);
+        int _id = Convert.ToInt32(Id);
+        ProjetoSuporte.Models.Madmin chamado = new ProjetoSuporte.Models.Madmin();
+        DadosSuporte dados = new DadosSuporte();
+
+        var situacao = dados.os.Single(c => c.os_nos.Equals(nchamado));
+        situacao.os_situacao = 2;
+        dados.SaveChanges();
+        chamado.SalvaAndamento(_id, nchamado);
+        Response.Redirect("Usuario");
+
+    }
+
+    <div>@Html.Action("MenuResolver", "AbreChamado")</div>
+    <div>@NChamado</div>
+
+}
+
+

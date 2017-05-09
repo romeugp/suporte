@@ -1,0 +1,87 @@
+﻿html{
+
+}
+body {
+    background-color: #2980b9;
+}
+
+fieldset#chatemensagens {
+    position:relative;
+    background-color:white;
+    width:70%;
+    height:70%;
+    float:right;
+    text-align:center;
+    /* Aplicar efeitos nas imagens do post */
+    border-left: 2px solid #D5BACB;
+    border-right: 2px solid #DEEEFE;
+    border-top: 2px solid #D1F5C7;
+    border-bottom: 2px solid #F2BFC8;
+    border-radius: 10px 10px 0px 0px; /* opcional deixa as bordas de todas as imagens de seus posts arredondadas */
+    margin:5px;
+}
+
+fieldset#chateusuario {
+   
+    background-color: white;
+    width: 70%;
+    height: 20%;
+    margin:3px;
+    float: right;
+    /* Aplicar efeitos nas imagens do post */
+    border-left: 2px solid #D5BACB;
+    border-right: 2px solid #DEEEFE;
+    border-top: 2px solid #D1F5C7;
+    border-bottom: 2px solid #F2BFC8;
+    border-radius: 10px; /* opcional deixa as bordas de todas as imagens de seus posts arredondadas */
+}
+div#detalheusuario {
+
+    background-color: silver;
+    width: 100%;
+    
+}
+input#mensagem {
+    position: absolute;
+    border: 0.5px solid;
+    width: 50%;
+    height: 20%;
+    border-radius: 10px;
+    margin-right: 110px;
+    margin-top: 100%;
+    margin-left: -20%;
+    margin-bottom: 5px;
+    bottom: 0px;
+    resize:none;
+}
+
+
+#scroll {
+    box-shadow: #000 0.1px 0.1px 0.5px 0.5px;
+    width: 100%;
+    margin-bottom:50px;
+    height: 300px;
+    background-color: white;
+    overflow: auto;
+}
+
+ul#conversa {
+
+    width:80%;
+    list-style-type: none;
+}
+
+p#limensagem{
+
+    text-align:left;
+    margin-left:115px;
+}
+
+strong#linome{
+
+    width:100px;
+    text-align:right;
+    color:silver;
+    float:left;
+}
+
