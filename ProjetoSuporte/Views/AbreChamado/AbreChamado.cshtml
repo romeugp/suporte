@@ -1,4 +1,4 @@
-﻿@model ProjetoSuporte.Models.Chamado
+﻿
 @{
     ViewBag.Title = "AbreChamado";
     Layout = "~/_SiteLayout.cshtml";
@@ -62,10 +62,45 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
-                <legend>AbreChamado admin/gerente</legend>
+               
                 <br />
                 <section>
-                    <div id="filtros">
+                        Setor:
+                         @Html.DropDownList("cmd_setor",new SelectList(Model, "Id","Nome"))
+
+                        Tipo:
+                         @Html.DropDownList("cmd_tipo", new SelectList(Enumerable.Empty<SelectListItem>(), "Id","Nome"))
+
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#cmd_setor').change(function () {
+                                var idSetor = $('#cmd_setor').val();
+                                if (idSetor > 0) {
+                                    $('#cmd_tipo').prop('disable', true);
+                                    $.post('@Url.Action("ObterTipos","AbreChamado")', { 'idSetor': idSetor }, function (data) {
+                                        if (data.length > 0) {
+                                            $('#cmd_tipo').empty();
+                                            for (var i = 0; i < data.length; i++) {
+                                                $('#cmd_tipo').append('<option value = "' + data[i].Id + '">' + data[i].Nome + '</option>');
+                                            }
+                                        }
+                                        $('#cmd_tipo').prop('disable', false);
+                                    });
+                                }
+                            });
+                        });
+
+                        <div style="display:none
+                            @ProjetoSuporte.Models.Chamado
+                                @Html.LabelFor(model => model.PrazoFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PrazoFinal, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PrazoFinal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                    </script>
+                    @*<div id="filtros">
 
                         <div class="form-group">
                             @Html.LabelFor(model => Model.Setor)
@@ -94,7 +129,7 @@
                     <div>@Html.TextAreaFor(model => Model.Detalhe, new { @cols = "50", @rows = "10", style = " resize:none; text-align:center; margin-top: 0px; ", @placeholder = "Digite seu problema aqui" })</div>
                     @Html.ValidationMessageFor(model => Model.Detalhe)
                     <br /><br />
-                    <div><input type="submit" value="Abrir" /></div>
+                    <div><input type="submit" value="Abrir" /></div>*@
                     <br />
 
                 </section>
@@ -116,7 +151,7 @@
 
                     <div>
 
-                        @Html.LabelFor(model => Model.Escolha)
+                        @*@Html.LabelFor(model => Model.Escolha)
                         @Html.DropDownListFor(model => Model.Escolha, new List<SelectListItem> {
              new SelectListItem {Text = "Máquina não liga",Value = "1" },
              new SelectListItem { Text = "Pasta da rede", Value = "2" },
@@ -127,19 +162,19 @@
              new SelectListItem {Text = "E-mail",Value = "7" },
              new SelectListItem {Text = "Solicitações",Value = "8" },
              new SelectListItem {Text = "Transferências",Value = "9" },
-             new SelectListItem {Text = "Outro",Value = "0" }
+             new SelectListItem {Text = "Outro",Value = "0" }*@
 
              })
                     </div>
 
 
-                    &nbsp;
+                    @*&nbsp;
                     <div>@Html.LabelFor(model => Model.Detalhe)</div>
                     <div>@Html.TextAreaFor(model => Model.Detalhe, new { @cols = "50", @rows = "10", style = " resize:none; text-align:center; margin-top: 0px; ", @placeholder = "Digite seu problema aqui" })</div>
                     @Html.ValidationMessageFor(model => Model.Detalhe)
                     <br /><br />
                     <div><input type="submit" value="Abrir" /></div>
-                    <br />
+                    <br />*@
 
                 </section>
 

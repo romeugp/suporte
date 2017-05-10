@@ -11,41 +11,49 @@ namespace ProjetoSuporte.Controllers
     {
         ProjetoSuporte.Models.BuscaChamado busca = new BuscaChamado();
         Chamado chamado = new Chamado();//Modelo da classe Chamado
-       
+
+        private List<Setor> _listaSetor = new List<Setor>()
+        {
+            new Setor(){id = 1, nome = "Informática"},
+            new Setor(){id = 2, nome = "Manutenção"}
+        };
+
+        private List<Tipo> _listaTipo = new List<Tipo>()
+        {
+            new Tipo(){Id = 1, Nome = "PDV",IdSetor = 1},
+            new Tipo(){Id = 2, Nome = "HARDWARE",IdSetor = 1},
+            new Tipo(){Id = 3, Nome = "SISTEMA RMS"},
+            new Tipo(){Id = 4, Nome = "SISTEMA EMPORIUM",IdSetor = 1},
+            new Tipo(){Id = 5, Nome = "REDE LÓGICA",IdSetor = 1},
+            new Tipo(){Id = 6, Nome = "REDE ELÉTRICA ESTABILIZADA",IdSetor = 1},
+            new Tipo(){Id = 7, Nome = "IMPRESSORA",IdSetor = 1},
+            new Tipo(){Id = 8, Nome = "CFTV",IdSetor = 1},
+            new Tipo(){Id = 9, Nome = "BALANÇAS ÁREA DE VENDAS",IdSetor = 1},
+            new Tipo(){Id = 10, Nome = "teste",IdSetor = 2}
+
+        };
 
         // GET: AbreChamado
-        [Authorize]
+
+        
+        [Authorize]      
         public ActionResult AbreChamado(Chamado chamado)
         {
-            
-            return View(chamado);
+            var ret = new List<Setor>();
+            ret.AddRange(_listaSetor);
+            ret.Insert(0, new Setor() { id = -1, nome = "--" });
+
+
+            return View(ret);
         }
 
-        public ActionResult CountryList()
+       [HttpPost]
+       public ActionResult ObterTipos(int idSetor)
         {
-            IQueryable countries = Country.GetCountries();
-            if (HttpContext.Request.IsAjaxRequest())
-            {
-                return Json(new SelectList(
-                   countries,
-                   "CountryCode",
-                   "CountryName"), JsonRequestBehavior.AllowGet
-                    );
-            }
-            return View(countries);
-        }
+            return Json(_listaTipo.FindAll(x => x.IdSetor == idSetor));
 
-        public ActionResult StateList(string CountryCode)
-        {
-            IQueryable states = State.GetState().Where(x => x.CountryCode == CountryCode);
-            if (HttpContext.Request.IsAjaxRequest())
-                return Json(new SelectList(
-                    states,
-                    "StateID",
-                    "StateName"), JsonRequestBehavior.AllowGet
-                    );
-            return View(states);
         }
+   
 
         [Authorize]
         public ActionResult InsereDados(Chamado chamado)

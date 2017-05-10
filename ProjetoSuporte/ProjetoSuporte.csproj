@@ -364,14 +364,10 @@
     <Compile Include="login.cs" />
     <Compile Include="Models\BuscaChamado.cs" />
     <Compile Include="Models\Chamado.cs" />
-    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Madmin.cs" />
     <Compile Include="Models\Mchamado.cs" />
-    <Compile Include="Models\problemas.cs" />
-    <Compile Include="Models\ProblemasRepository.cs" />
     <Compile Include="Models\Setor.cs" />
-    <Compile Include="Models\SetorRepository.cs" />
-    <Compile Include="Models\State.cs" />
+    <Compile Include="Models\Tipo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="manutencao.cs" />
     <Compile Include="os.cs" />
