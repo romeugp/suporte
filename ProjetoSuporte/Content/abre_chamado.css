@@ -23,11 +23,13 @@ input {
     margin-top: 1%;
     height: 40px;
     width: 20%;
+    
 }
 
 input#PrazoFinal{
     height:20px;
-    width:85px;
+    width:255px;
+    
 }
 button.ui-button-icon-only {
     width: 1.7em;

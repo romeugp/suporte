@@ -362,6 +362,7 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="login.cs" />
+    <Compile Include="Models\AbreChamadosViewModel.cs" />
     <Compile Include="Models\BuscaChamado.cs" />
     <Compile Include="Models\Chamado.cs" />
     <Compile Include="Models\Madmin.cs" />
